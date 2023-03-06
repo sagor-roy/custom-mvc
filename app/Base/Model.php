@@ -33,9 +33,4 @@ class Model
         return $stmt->fetchAll();
     }
 
-    public function fetchObj($query) : mixed
-    {
-        $stmt = $this->execute($query);
-        return $stmt->fetch();
-    }
 }

@@ -9,13 +9,34 @@
 </head>
 
 <body>
-    <h1>Hello Home Page</h1>
+    <?php $id = 5; ?>
 
-    <ul>
+    <a href="/view/<?= $id; ?>">View page</a>
+
+    <br><br>
+
+    <form action="/user/create" method="post">
+        <input type="email" name="email">
+        <input type="text" name="name">
+        <button type="submit">Submit</button>
+    </form>
+
+    <br>
+    <p>
+        <?php
+        if (App\Base\Session::has('message')) :
+            echo App\Base\Session::get('message');
+            session_destroy();
+        endif;
+        ?>
+    </p>
+    <br>
+
+    <ol>
         <?php foreach ($result as $value) : ?>
-            <li><?php echo 'Name : '. $value["name"] .', Email : '. $value['email'] ?></li>
+            <li><?php echo 'Name : ' . $value["name"] . ', Email : ' . $value['email'] ?> <a href="/user/delete/<?= $value['id'] ?>">Delete</a> <a href="/view/<?= $value['id'] ?>">Edit</a></li>
         <?php endforeach; ?>
-    </ul>
+    </ol>
 </body>
 
 </html>
