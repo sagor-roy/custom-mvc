@@ -24,20 +24,18 @@ class HomeController extends Controller
 
     public function store()
     {
-        // if (empty($_POST['name']) || empty($_POST['email'])) {
-        //     Session::set('message', 'Input field is required');
-        // } else {
-        //     $this->user->create($_POST);
-        //     Session::set('message', 'Data create successfull');
-        // }
-        // Redirect::back('/');
-
-        $check =  Validator::check($_POST, [
-            'name' => 'required',
-            'email' => 'required'
+        $validator = new Validator($_POST, [
+            'name' => ['required'],
+            'email' => ['required']
         ]);
 
-        var_dump($check);
+        if ($validator->fails()) {
+            Redirect::back('/');
+        } else {
+            $this->user->create($_POST);
+            Session::set('message', 'Data create successfull');
+            Redirect::back('/');
+        }
     }
 
     public function destroy($id)

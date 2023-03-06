@@ -10,10 +10,24 @@
 
 <body>
 
-    <br><br>
+    <br>
+
+    <?php if (!empty($_SESSION['errors'])) : ?>
+        <ul>
+            <?php foreach ($_SESSION['errors'] as $attribute => $errorMessages) : ?>
+                <?php foreach ($errorMessages as $errorMessage) : ?>
+                    <li><?php echo $errorMessage; ?></li>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif;
+    unset($_SESSION['errors']);
+    ?>
+
+    <br>
 
     <form action="/user/create" method="post">
-        <input type="email" name="email">
+        <input type="text" name="email">
         <input type="text" name="name">
         <button type="submit">Submit</button>
     </form>
@@ -23,7 +37,7 @@
         <?php
         if (App\Base\Session::has('message')) :
             echo App\Base\Session::get('message');
-            session_destroy();
+            unset($_SESSION['message']);
         endif;
         ?>
     </p>
