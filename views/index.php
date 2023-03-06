@@ -9,9 +9,6 @@
 </head>
 
 <body>
-    <?php $id = 5; ?>
-
-    <a href="/view/<?= $id; ?>">View page</a>
 
     <br><br>
 

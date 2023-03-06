@@ -1,8 +1,9 @@
 <?php
+
 use Pecee\SimpleRouter\SimpleRouter;
 
 define('VIEWS', __DIR__);
-define('BASEURL',$_SERVER['HTTP_HOST']);
+define('BASEURL', $_SERVER['HTTP_HOST']);
 
 
 require __DIR__ . '/vendor/autoload.php';
