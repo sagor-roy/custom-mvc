@@ -12,6 +12,8 @@
 
     <br>
 
+    <img src="<?= asset('uploads/avatar.png') ?>" width="50" alt="img">
+
     <?php if (!empty($_SESSION['errors'])) : ?>
         <ul>
             <?php foreach ($_SESSION['errors'] as $attribute => $errorMessages) : ?>

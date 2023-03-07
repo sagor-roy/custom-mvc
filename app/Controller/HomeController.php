@@ -32,6 +32,7 @@ class HomeController extends Controller
         if ($validator->fails()) {
             Redirect::back('/');
         } else {
+            
             $this->user->create($_POST);
             Session::set('message', 'Data create successfull');
             Redirect::back('/');
