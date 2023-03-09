@@ -4,10 +4,18 @@ namespace App\Base;
 
 class Model
 {
-    private $tableName;
-    public function __construct($tableName)
+    private $hostname;
+    private $db_name;
+    private $db_user;
+    private $db_password;
+
+    public function __construct(private $tableName)
     {
         $this->tableName = $tableName;
+        $this->hostname = env('DB_HOST');
+        $this->db_name = env('DB_NAME');
+        $this->db_user = env('DB_USER');
+        $this->db_password = env('DB_PASS');
         $this->connect();
     }
 
@@ -15,7 +23,7 @@ class Model
     public function connect()
     {
         try {
-            return new \PDO("mysql:host=" . env('DB_HOST') . ";dbname=" . env('DB_NAME') . "", "" . env('DB_USER') . "", "" . env('DB_PASS') . "");
+            return new \PDO("mysql:host=" . $this->hostname . ";dbname=" . $this->db_name . "", "" . $this->db_user . "", "" . $this->db_password . "");
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -84,5 +92,11 @@ class Model
     {
         $stmt = $this->execute($query);
         return $stmt->fetchAll();
+    }
+
+    public function belongsTo($tblName, $foreign_key, $id = 'id'): array|false
+    {
+        $query = "SELECT * FROM `{$this->tableName}` JOIN `{$tblName}` ON {$this->tableName}.{$foreign_key} = {$tblName}.{$id}";
+        return $this->fetch($query);
     }
 }

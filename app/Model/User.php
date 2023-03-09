@@ -3,11 +3,10 @@
 namespace App\Model;
 
 use App\Base\Model;
-use App\Base\Redirect;
 
 class User extends Model
 {
-    private $table = 'user';
+    protected $table = 'user';
     public function __construct()
     {
         parent::__construct($this->table);

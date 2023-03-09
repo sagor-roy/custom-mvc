@@ -6,6 +6,7 @@ use App\Base\Redirect;
 use App\Base\Session;
 use App\Base\Validator;
 use App\Controller\Controller;
+use App\Model\Order;
 use App\Model\User;
 
 class HomeController extends Controller
@@ -16,9 +17,10 @@ class HomeController extends Controller
         $this->user = new User;
     }
 
-    public function index(): mixed
+    public function index()
     {
-        $result = $this->user->get('user');
+        $result = new Order;
+        $result = $result->users();
         return views('index', compact('result'));
     }
 
@@ -32,7 +34,7 @@ class HomeController extends Controller
         if ($validator->fails()) {
             Redirect::back('/');
         } else {
-            
+
             $this->user->create($_POST);
             Session::set('message', 'Data create successfull');
             Redirect::back('/');
