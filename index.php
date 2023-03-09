@@ -2,7 +2,7 @@
 
 use Pecee\SimpleRouter\SimpleRouter;
 
-define('VIEWS', __DIR__);
+define('ROOT_PATH', __DIR__);
 $currentUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
 
 // Parse the URL to extract the domain name
