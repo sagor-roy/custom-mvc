@@ -3,7 +3,6 @@
 use App\Base\Route;
 use App\Controller\AuthController;
 use App\Controller\HomeController;
-use App\Controller\StudentController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/view/{id}', [HomeController::class, 'edit']);
