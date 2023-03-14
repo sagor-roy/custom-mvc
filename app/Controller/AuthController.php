@@ -17,6 +17,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
+        $this->middleware('guest');
         $this->auth = new Auth;
         $this->customer = new Customer;
     }
@@ -42,28 +43,16 @@ class AuthController extends Controller
             Redirect::back('/login');
         } else {
             $data = $_POST;
-
             $credential = [
                 'email' => $data['email'],
                 'password' => $data['password'],
             ];
-
-            // if (Auth::check()) {
-            //     echo 'yes';
-            // } else {
-            //     echo 'no';
-            // }
-
-            var_dump(Auth::user());
-
-
-            //var_dump($this->auth->attempt('customer', $credential));
-
-            // if ($this->auth->attempt('customer', $credential)) {
-            //     var_dump(Auth::user());
-            // } else {
-            //     echo 'faild';
-            // }
+            if ($this->auth->attempt('customer', $credential)) {
+                Redirect::back('/');
+            } else {
+                Session::set('message', 'credential does not match');
+                Redirect::back('/login');
+            }
         }
     }
 

@@ -15,6 +15,7 @@ class HomeController extends Controller
     private $user;
     public function __construct()
     {
+        $this->middleware('auth');
         $this->user = new User;
     }
 
@@ -26,15 +27,28 @@ class HomeController extends Controller
 
     public function store()
     {
-        $mail = new Mail;
-        $data = $_POST;
-        $mail->send('mail.index', function ($mail) {
-            $mail->setFrom('from@example.com', 'First Last');
-            $mail->addReplyTo('replyto@example.com', 'First Last');
-            $mail->addAddress('whoto@example.com', 'John Doe');
-            $mail->Subject = 'PHPMailer SMTP test';
-        });
-        Redirect::back('/');
+        // $mail = new Mail;
+        // $data = $_POST;
+        // $mail->send('mail.index', function ($mail) {
+        //     $mail->setFrom('from@example.com', 'First Last');
+        //     $mail->addReplyTo('replyto@example.com', 'First Last');
+        //     $mail->addAddress('whoto@example.com', 'John Doe');
+        //     $mail->Subject = 'PHPMailer SMTP test';
+        // });
+        // Redirect::back('/');
+
+        $validator = new Validator($_POST, [
+            'name' => ['required'],
+            'email' => ['required']
+        ]);
+
+        if ($validator->fails()) {
+            Redirect::back('/');
+        } else {
+            $this->user->create($_POST);
+            Session::set('message', 'Data create successfull');
+            Redirect::back('/');
+        }
     }
 
     public function destroy($id)
