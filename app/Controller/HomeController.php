@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Base\Mail;
 use App\Base\Redirect;
 use App\Base\Session;
 use App\Base\Validator;
@@ -9,11 +10,13 @@ use App\Controller\Controller;
 use App\Model\User;
 use App\Service\UserService;
 
+
 class HomeController extends Controller
 {
     private $user;
     public function __construct()
     {
+        $this->middleware('auth');
         $this->user = new User;
     }
 
@@ -25,6 +28,16 @@ class HomeController extends Controller
 
     public function store()
     {
+        // $mail = new Mail;
+        // $data = $_POST;
+        // $mail->send('mail.index', function ($mail) {
+        //     $mail->setFrom('from@example.com', 'First Last');
+        //     $mail->addReplyTo('replyto@example.com', 'First Last');
+        //     $mail->addAddress('whoto@example.com', 'John Doe');
+        //     $mail->Subject = 'PHPMailer SMTP test';
+        // });
+        // Redirect::back('/');
+
         $validator = new Validator($_POST, [
             'name' => ['required'],
             'email' => ['required'],
@@ -33,7 +46,7 @@ class HomeController extends Controller
         if ($validator->fails()) {
             Redirect::back('/');
         } else {
-            UserService::store($_POST);
+            $this->user->create($_POST);
             Session::set('message', 'Data create successfull');
             Redirect::back('/');
         }

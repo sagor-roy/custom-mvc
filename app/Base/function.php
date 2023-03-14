@@ -4,7 +4,7 @@ function views($path, $data = [])
 {
     extract($data);
     $path = str_replace('.', '/', $path);
-    require_once VIEWS . '/views/' . $path . '.php';
+    require_once ROOT_PATH . '/views/' . $path . '.php';
 }
 
 function env($key)

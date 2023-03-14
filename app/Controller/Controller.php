@@ -1,6 +1,10 @@
 <?php
+
 namespace App\Controller;
+
+use App\Middleware\Middleware;
+
 session_start();
-class Controller {
-    
+class Controller extends Middleware
+{
 }

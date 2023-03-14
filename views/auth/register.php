@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo env('APP_NAME') ?></title>
+    <title>Register</title>
 </head>
 
 <body>
+    <h5>Register</h5>
 
-    <br>
-
-    <!-- <img src="<?= asset('uploads/avatar.png') ?>" width="50" alt="img"> -->
     <?php if (!empty($_SESSION['errors'])) : ?>
         <br>
         <ul>
@@ -38,20 +36,12 @@
     </p>
     <br>
 
-    <br>
-
-    <form action="/user/create" method="post">
-        <input type="text" name="email">
-        <input type="text" name="name">
-        <button type="submit">Submit</button>
+    <form action="customer/store" method="post">
+        <input type="text" name="name" placeholder="name"> <br><br>
+        <input type="email" name="email" placeholder="email"> <br><br>
+        <input type="password" name="password" placeholder="password"> <br><br>
+        <button type="submit">register</button>
     </form>
-
-
-    <ol>
-        <?php foreach ($users as $value) : ?>
-            <li><?php echo 'Name : ' . $value["name"] . ', Email : ' . $value['email'] ?> <a href="/user/delete/<?= $value['id'] ?>">Delete</a> <a href="/view/<?= $value['id'] ?>">Edit</a></li>
-        <?php endforeach; ?>
-    </ol>
 </body>
 
 </html>

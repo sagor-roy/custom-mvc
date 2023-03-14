@@ -1,5 +1,11 @@
 {
     "name": "sagor/mvc",
+    "require": {
+        "php": "^8.0",
+        "pecee/simple-router": "4.3.7.2",
+        "vlucas/phpdotenv": "^5.5",
+        "phpmailer/phpmailer": "^6.8"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "app/"
@@ -13,9 +19,6 @@
             "name": "sagor roy",
             "email": "sagorroy204@gmail.com"
         }
-    ],
-    "require": {
-        "pecee/simple-router": "4.3.7.2",
-        "vlucas/phpdotenv": "^5.5"
-    }
+    ]
+    
 }
