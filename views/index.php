@@ -28,7 +28,7 @@
 
     <br>
 
-    <form action="/user/create" method="post">
+    <form action="/user/create" method="post" enctype="multipart/form-data">
         <input type="text" name="email">
         <input type="text" name="name">
         <button type="submit">Submit</button>
@@ -45,8 +45,13 @@
     </p>
     <br>
 
+    <?php
+    $users = new App\Model\User;
+    $users = $users->get();
+    ?>
+
     <ol>
-        <?php foreach ($result as $value) : ?>
+        <?php foreach ($users as $value) : ?>
             <li><?php echo 'Name : ' . $value["name"] . ', Email : ' . $value['email'] ?> <a href="/user/delete/<?= $value['id'] ?>">Delete</a> <a href="/view/<?= $value['id'] ?>">Edit</a></li>
         <?php endforeach; ?>
     </ol>

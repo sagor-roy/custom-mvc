@@ -7,6 +7,7 @@ use App\Base\Session;
 use App\Base\Validator;
 use App\Controller\Controller;
 use App\Model\User;
+use App\Service\UserService;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,7 @@ class HomeController extends Controller
 
     public function index(): mixed
     {
-        $result = $this->user->get('user');
+        $result = $this->user->get();
         return views('index', compact('result'));
     }
 
@@ -26,14 +27,13 @@ class HomeController extends Controller
     {
         $validator = new Validator($_POST, [
             'name' => ['required'],
-            'email' => ['required']
+            'email' => ['required'],
         ]);
 
         if ($validator->fails()) {
             Redirect::back('/');
         } else {
-            
-            $this->user->create($_POST);
+            UserService::store($_POST);
             Session::set('message', 'Data create successfull');
             Redirect::back('/');
         }
