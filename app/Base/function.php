@@ -3,7 +3,7 @@
 function views($path, $data = [])
 {
     extract($data);
-    require_once VIEWS . '/views/' . $path . '.php';
+    require_once ROOT_PATH . '/views/' . $path . '.php';
 }
 
 function env($key)
