@@ -48,6 +48,7 @@ class Auth
     {
         unset($_SESSION['auth_status']);
         unset($_SESSION['auth_info']);
+        return;
     }
 
     public function execute($query): \PDOStatement|false

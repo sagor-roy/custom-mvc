@@ -10,11 +10,10 @@
 
 <body>
 
-    <br>
+    <a href="/customer/logout">Logout</a>
 
     <!-- <img src="<?= asset('uploads/avatar.png') ?>" width="50" alt="img"> -->
     <?php if (!empty($_SESSION['errors'])) : ?>
-        <br>
         <ul>
             <?php foreach ($_SESSION['errors'] as $attribute => $errorMessages) : ?>
                 <?php foreach ($errorMessages as $errorMessage) : ?>
@@ -46,9 +45,8 @@
         <button type="submit">Submit</button>
     </form>
 
-
     <ol>
-        <?php foreach ($users as $value) : ?>
+        <?php foreach ($result as $value) : ?>
             <li><?php echo 'Name : ' . $value["name"] . ', Email : ' . $value['email'] ?> <a href="/user/delete/<?= $value['id'] ?>">Delete</a> <a href="/view/<?= $value['id'] ?>">Edit</a></li>
         <?php endforeach; ?>
     </ol>

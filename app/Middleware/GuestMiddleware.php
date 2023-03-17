@@ -9,10 +9,10 @@ class GuestMiddleware
 {
     public static function handler()
     {
-        if (!Auth::check()) {
-            return true;
+        if (Auth::check()) {
+            Redirect::back('/');
         } else {
-            Redirect::back('/login');
+            return true;
         }
     }
 }

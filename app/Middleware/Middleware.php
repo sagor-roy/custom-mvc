@@ -3,6 +3,7 @@
 namespace App\Middleware;
 
 use App\Middleware\AuthMiddleware;
+use App\Middleware\GuestMiddleware;
 
 class Middleware
 {

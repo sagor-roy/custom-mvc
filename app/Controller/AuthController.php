@@ -74,4 +74,10 @@ class AuthController extends Controller
             Redirect::back('/register');
         }
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        Redirect::back('/login');
+    }
 }
