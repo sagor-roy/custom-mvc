@@ -18,7 +18,6 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
-        $this->auth = new Auth;
         $this->customer = new Customer;
     }
 
@@ -47,7 +46,7 @@ class AuthController extends Controller
                 'email' => $data['email'],
                 'password' => $data['password'],
             ];
-            if ($this->auth->attempt('customer', $credential)) {
+            if (Auth::attempt('customer', $credential)) {
                 Redirect::back('/');
             } else {
                 Session::set('message', 'credential does not match');

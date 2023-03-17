@@ -10,6 +10,14 @@
 
 <body>
 
+<?php
+$user = \App\Base\Auth::user();
+?>
+<ul>
+    <li>Name : <?= $user[0]['name'] ?></li>
+    <li>Name : <?= $user[0]['email'] ?></li>
+</ul>
+
     <a href="/customer/logout">Logout</a>
 
     <!-- <img src="<?= asset('uploads/avatar.png') ?>" width="50" alt="img"> -->

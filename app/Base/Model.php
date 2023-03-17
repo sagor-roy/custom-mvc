@@ -4,7 +4,7 @@ namespace App\Base;
 
 class Model
 {
-    private $tableName;
+    protected $tableName;
     public function __construct($tableName)
     {
         $this->tableName = $tableName;
