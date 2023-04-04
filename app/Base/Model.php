@@ -5,9 +5,18 @@ namespace App\Base;
 class Model
 {
     protected $tableName;
+    private $host;
+    private $db;
+    private $user;
+    private $pass;
+
     public function __construct($tableName)
     {
         $this->tableName = $tableName;
+        $this->host = env('DB_HOST');
+        $this->db = env('DB_NAME');
+        $this->user = env('DB_USER');
+        $this->pass = env('DB_PASS');
         $this->connect();
     }
 
@@ -15,7 +24,7 @@ class Model
     public function connect()
     {
         try {
-            return new \PDO("mysql:host=" . env('DB_HOST') . ";dbname=" . env('DB_NAME') . "", "" . env('DB_USER') . "", "" . env('DB_PASS') . "");
+            return new \PDO("mysql:host=" . $this->host . ";dbname=" . $this->db . "", "" . $this->user . "", "" . $this->pass . "");
         } catch (\Throwable $th) {
             throw $th;
         }
