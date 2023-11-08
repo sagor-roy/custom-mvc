@@ -23,7 +23,7 @@
 
     <br>
     <br>
-    
+
     <img src="{{ asset('uploads/avatar.png') }}" width="50" alt="img">
 
 
@@ -35,7 +35,6 @@
                 @endforeach
             @endforeach
         </ul>
-        <br>
     @endif
     @php
         unset($_SESSION['errors']);
@@ -50,8 +49,6 @@
             @endphp
         @endif
     </p>
-    <br>
-
     <br>
 
     <form action="/user/create" method="post">
