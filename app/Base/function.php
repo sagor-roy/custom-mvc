@@ -1,16 +1,17 @@
 <?php
 
+use Jenssegers\Blade\Blade;
+
 function views($path, $data = [])
 {
-    extract($data);
-    $path = str_replace('.', '/', $path);
-    require_once ROOT_PATH . '/views/' . $path . '.php';
+    $blade = new Blade(ROOT_PATH . '/views', ROOT_PATH . '/storage');
+    return $blade->make($path, $data)->render();
 }
 
-function env($key)
-{
-    return $_ENV[$key];
-}
+// function env($key)
+// {
+//     return $_ENV[$key];
+// }
 
 function asset($path)
 {
