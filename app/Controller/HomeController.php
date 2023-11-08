@@ -9,7 +9,7 @@ use App\Base\Validator;
 use App\Controller\Controller;
 use App\Model\User;
 use App\Service\UserService;
-
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

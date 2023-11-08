@@ -1,7 +1,6 @@
 <?php
 
 use App\Base\Route;
-use Jenssegers\Blade\Blade;
 use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AboutController;
