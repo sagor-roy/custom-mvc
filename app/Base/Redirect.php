@@ -4,8 +4,14 @@ namespace App\Base;
 
 class Redirect
 {
-    public static function back($path)
+    public static function go($path)
     {
         header("Location:{$path}");
+    }
+
+    public static function back()
+    {
+        $previousPage = $_SERVER['HTTP_REFERER'];
+        header("Location: $previousPage");
     }
 }

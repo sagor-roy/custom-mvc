@@ -38,21 +38,15 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if ($validator->fails()) {
-            Redirect::back('/login');
-        } else {
-            $data = $_POST;
-            $credential = [
-                'email' => $data['email'],
-                'password' => $data['password'],
-            ];
-            if (Auth::attempt('customer', $credential)) {
-                Redirect::back('/');
+        if (!$validator->fails()) {
+            if (Auth::attempt('customer', $_POST)) {
+                Redirect::go('/');
             } else {
                 Session::set('message', 'credential does not match');
-                Redirect::back('/login');
+                Redirect::back();
             }
         }
+        Redirect::back();
     }
 
     public function store()
@@ -64,19 +58,19 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            Redirect::back('/register');
+            Redirect::back();
         } else {
             $data = $_POST;
             $data['password'] = Hash::make($_POST['password']);
             $this->customer->create($data);
             Session::set('message', 'Data create successfull');
-            Redirect::back('/register');
+            Redirect::back();
         }
     }
 
     public function logout()
     {
         Auth::logout();
-        Redirect::back('/login');
+        Redirect::go('/login');
     }
 }
