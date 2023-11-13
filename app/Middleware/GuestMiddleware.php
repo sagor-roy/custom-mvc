@@ -10,7 +10,7 @@ class GuestMiddleware
     public static function handler()
     {
         if (Auth::check()) {
-            Redirect::back('/');
+            Redirect::to('/');
         } else {
             return true;
         }

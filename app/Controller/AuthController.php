@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         if (!$validator->fails()) {
             if (Auth::attempt('customer', $_POST)) {
-                Redirect::go('/');
+                Redirect::to('/');
             } else {
                 Session::set('message', 'credential does not match');
                 Redirect::back();
@@ -71,6 +71,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        Redirect::go('/login');
+        Redirect::to('/login');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Base;
 
 class Redirect
 {
-    public static function go($path)
+    public static function to($path)
     {
         header("Location:{$path}");
     }

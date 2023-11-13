@@ -9,6 +9,7 @@ class Model
     private $db;
     private $user;
     private $pass;
+    private $getQuery;
 
     public function __construct($tableName)
     {
@@ -18,6 +19,7 @@ class Model
         $this->user = env('DB_USER');
         $this->pass = env('DB_PASS');
         $this->connect();
+        $this->getQuery = "SELECT * FROM {$this->tableName}";
     }
 
     // DB Connection
@@ -30,11 +32,28 @@ class Model
         }
     }
 
+    public function where(...$conditions)
+    {
+        if (count($conditions) === 2) {
+            // Assuming equality if only two parameters are provided
+            list($column, $value) = $conditions;
+            $this->getQuery .= " WHERE {$column} = " . $this->connect()->quote($value);
+        } elseif (count($conditions) === 3) {
+            // Assuming column, operator, and value if three parameters are provided
+            list($column, $operator, $value) = $conditions;
+            $this->getQuery .= " WHERE {$column} {$operator} " . $this->connect()->quote($value);
+        } else {
+            throw new \InvalidArgumentException('Invalid number of parameters for WHERE clause');
+        }
+
+        return $this;
+    }
+
     // Fetch all data from Database
     public function get(): array|false
     {
-        $query = "SELECT * FROM {$this->tableName}";
-        return $this->fetch($query);
+        //$query = "SELECT * FROM {$this->tableName}";
+        return $this->fetch($this->getQuery);
     }
 
     // data store method
@@ -59,7 +78,7 @@ class Model
         $id = implode("", $matches[0]);
         $query = "SELECT * FROM {$this->tableName} WHERE id={$id}";
         $result = $this->fetch($query);
-        return $result ? $result : Redirect::back('/404');
+        return $result ? $result : Redirect::to('/404');
     }
 
     // data update
@@ -92,6 +111,6 @@ class Model
     public function fetch($query): array | false
     {
         $stmt = $this->execute($query);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

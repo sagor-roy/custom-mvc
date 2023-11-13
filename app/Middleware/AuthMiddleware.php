@@ -12,7 +12,7 @@ class AuthMiddleware
         if (Auth::check()) {
             return true;
         } else {
-            Redirect::back('/login');
+            Redirect::to('/login');
         }
     }
 }

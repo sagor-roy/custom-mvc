@@ -38,6 +38,7 @@
         <input type="email" name="email"> <br><br>
         <input type="password" name="password"> <br><br>
         <button type="submit">Login</button>
+        <a href="/register">register</a>
     </form>
 </body>
 

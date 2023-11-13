@@ -5,6 +5,8 @@ use App\Controller\AuthController;
 use App\Controller\HomeController;
 use App\Controller\AboutController;
 
+//Route::start();
+
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/about', [AboutController::class, 'index']);
 Route::get('/view/{id}', [HomeController::class, 'edit']);
