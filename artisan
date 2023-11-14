@@ -1,0 +1,73 @@
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+if (isset($argv[1])) {
+    $command = $argv[1];
+
+    if ($command === "make:migration" && isset($argv[2])) {
+        $searchWord = $argv[2];
+
+        // File path and name
+        $date = date("Y_m_d_His");
+        $className = ucfirst($searchWord);
+        $filePath = __DIR__ . "/database/migration/" . $date . '_create_' . $searchWord . "_table.php";
+
+        // Check if the file already exists
+        if (file_exists($filePath)) {
+            echo 'The file already exists.';
+            exit;
+        }
+
+        // Open or create the file (w+ mode means read/write and create if not exists)
+        $fileHandle = fopen($filePath, 'w+');
+
+        if ($fileHandle === false) {
+            die('Could not open or create the file.');
+        }
+
+        // Read content from the template file
+        $templateFilePath = __DIR__ . "/app/Base/Template/tableSchema.txt";
+        $templateContent = file_get_contents($templateFilePath);
+
+        // Replace the dynamic content placeholders in the template
+        $dynamicContent = "Create" . $className . "Table";
+        $fileContent = str_replace(['MigrationTemplate', '{ClassName}'], [$dynamicContent, $className], $templateContent);
+
+        // Write content to the file
+        fwrite($fileHandle, $fileContent);
+
+        // Close the file handle
+        fclose($fileHandle);
+
+        echo 'File created successfully.';
+    } elseif ($command === "migrate") {
+        $folderPath = __DIR__ . "/database/migration/";
+        // Use scandir to get an array of all files in the folder
+        $files = scandir($folderPath);
+        // Remove "." and ".." entries
+        $files = array_diff($files, array('.', '..'));
+
+        foreach ($files as $key => $file) {
+            if (pathinfo($file, PATHINFO_EXTENSION) === 'php') {
+                require_once($folderPath . '/' . $file);
+                // Get the declared classes in the file
+                $declaredClasses = get_declared_classes();
+                // Get the last declared class (assuming it's the one from the file)
+                $lastClass = end($declaredClasses);
+                $tableClassName =  new $lastClass();
+                // Print or use the class name as needed
+                $tableClassName->up();
+            }
+        }
+    } elseif ($command === 'serve') {
+        exec('php -S localhost:8000');
+    } else {
+        echo "Invalid command.";
+    }
+} else {
+    echo "No command found.";
+}

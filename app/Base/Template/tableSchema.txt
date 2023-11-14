@@ -1,0 +1,14 @@
+<?php
+
+class MigrationTemplate
+{
+    public function up()
+    {
+        return "Add your dynamic MigrationTemplate here";
+    }
+
+    public function down()
+    {
+        // Define down logic if needed
+    }
+}
